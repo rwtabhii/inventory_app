@@ -14,6 +14,7 @@ server.use(ejslayouts);
 // create an instance of ProductController
 const productController = new ProductController(); 
 server.get('/', (productController.getProducts));
+server.get("/productForm",productController.getaddProduct)
 
 server.use(express.static('src/views'));
 
