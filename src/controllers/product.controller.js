@@ -13,4 +13,10 @@ export default class ProductController{
     getaddProduct(req,res){
        return  res.render("addProductForm");
     }
+    showNewProductsList(req,res){
+      console.log(req.body);
+      ProductModel.addProduct(req.body);
+      let products = ProductModel.get()
+      return res.render("products",{products:products});
+     }
 }
