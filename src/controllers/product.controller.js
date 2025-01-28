@@ -11,7 +11,7 @@ export default class ProductController{
     }
 
     getaddProduct(req,res){
-       return  res.render("addProductForm");
+       return  res.render("addProductForm",{errorMessage:null});
     }
     showNewProductsList(req,res){
       console.log(req.body);

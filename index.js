@@ -1,6 +1,8 @@
 import express from 'express'
 import ProductController from './src/controllers/product.controller.js';
 import ejslayouts from "express-ejs-layouts"
+import { validationRequest } from './src/middleware/formValidation.js';
+
 
 import path from 'path';
 
@@ -20,7 +22,7 @@ server.get("/productForm",productController.getaddProduct);
 server.use(express.static('src/views'));
 // middleware for new product list post req
 server.use(express.urlencoded({extended : true})); 
-server.post("/",productController.showNewProductsList);
+server.post("/",validationRequest,productController.showNewProductsList);
 
 server.listen(3000);
 console.log('Server is listening on port 3000');
