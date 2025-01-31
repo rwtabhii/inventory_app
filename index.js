@@ -22,7 +22,11 @@ server.get("/productForm",productController.getaddProduct);
 server.use(express.static('src/views'));
 // middleware for new product list post req
 server.use(express.urlencoded({extended : true})); 
-server.post("/",validationRequest,productController.showNewProductsList);
+server.post("/productForm",validationRequest,productController.showNewProductsList);
+
+// updated products
+server.get("/updateProduct/:id",productController.getUpdateProductform);
+server.post("/updateProduct",validationRequest,productController.updateProductList)
 
 server.listen(3000);
 console.log('Server is listening on port 3000');

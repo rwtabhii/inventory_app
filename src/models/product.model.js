@@ -14,6 +14,31 @@ export default class ProductModel {
     let newProduct = new ProductModel(products.length + 1, productobj.name, productobj.desc, productobj.price, productobj.imageUrl)
     return products.push(newProduct);
   }
+  static getByid(id) {
+    return products.find(p => p.id == id);
+  }
+  static updateData(product) {
+    let { id, name, desc, price, imageUrl } = product;
+
+    id = Number(id);  // Convert id to a number to match stored IDs
+
+    const existingProduct = products.find(p => p.id === id);
+
+    if (!existingProduct) {
+      console.log("⚠️ Product not found, update failed.");
+      return false;  // Return false if product is not found
+    }
+
+    // Modify the existing object (this updates the original array)
+    existingProduct.name = name;
+    existingProduct.desc = desc;
+    existingProduct.price = price;
+    existingProduct.imageUrl = imageUrl;
+
+    console.log("✅ Product updated successfully:", existingProduct);
+    return true;
+  }
+
 }
 
 var products = [
