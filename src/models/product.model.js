@@ -38,7 +38,11 @@ export default class ProductModel {
     console.log("✅ Product updated successfully:", existingProduct);
     return true;
   }
+  static deleteData(id){
+    let index =  products.findIndex(p=> p.id == id);
+    products.splice(index,1)
 
+  }
 }
 
 var products = [

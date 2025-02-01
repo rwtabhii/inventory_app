@@ -13,7 +13,7 @@ server.set("view engine", "ejs");
 // path of our views
 server.set("views", path.join(path.resolve(),"src",'views')); 
 server.use(ejslayouts);
-
+server.use(express.static("src/public"));
 // create an instance of ProductController
 const productController = new ProductController(); 
 server.get('/', (productController.getProducts));
@@ -27,6 +27,9 @@ server.post("/productForm",validationRequest,productController.showNewProductsLi
 // updated products
 server.get("/updateProduct/:id",productController.getUpdateProductform);
 server.post("/updateProduct",validationRequest,productController.updateProductList)
+
+// deletion product 
+server.post("/deleteProduct/:id",productController.deleteProduct);
 
 server.listen(3000);
 console.log('Server is listening on port 3000');
