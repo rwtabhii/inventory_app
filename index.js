@@ -2,7 +2,7 @@ import express from 'express'
 import ProductController from './src/controllers/product.controller.js';
 import ejslayouts from "express-ejs-layouts"
 import { validationRequest } from './src/middleware/formValidation.js';
-
+import { uploadFile } from './src/middleware/fileUploadmiddleware.js';
 
 import path from 'path';
 
@@ -21,8 +21,8 @@ server.get("/productForm",productController.getaddProduct);
 
 server.use(express.static('src/views'));
 // middleware for new product list post req
-server.use(express.urlencoded({extended : true})); 
-server.post("/productForm",validationRequest,productController.showNewProductsList);
+// server.use(express.urlencoded({extended : true})); 
+server.post("/",uploadFile.single("imageUrl"),validationRequest,productController.showNewProductsList);
 
 // updated products
 server.get("/updateProduct/:id",productController.getUpdateProductform);
@@ -30,6 +30,8 @@ server.post("/updateProduct",validationRequest,productController.updateProductLi
 
 // deletion product 
 server.post("/deleteProduct/:id",productController.deleteProduct);
+
+
 
 server.listen(3000);
 console.log('Server is listening on port 3000');

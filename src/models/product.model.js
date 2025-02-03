@@ -10,8 +10,9 @@ export default class ProductModel {
   static get() {
     return products;
   }
-  static addProduct(productobj) {
-    let newProduct = new ProductModel(products.length + 1, productobj.name, productobj.desc, productobj.price, productobj.imageUrl)
+  static addProduct(name, desc, price, imageUrl) {
+
+    let newProduct = new ProductModel(products.length + 1, name, desc, price, imageUrl)
     return products.push(newProduct);
   }
   static getByid(id) {
@@ -38,9 +39,9 @@ export default class ProductModel {
     console.log("✅ Product updated successfully:", existingProduct);
     return true;
   }
-  static deleteData(id){
-    let index =  products.findIndex(p=> p.id == id);
-    products.splice(index,1)
+  static deleteData(id) {
+    let index = products.findIndex(p => p.id == id);
+    products.splice(index, 1)
 
   }
 }
