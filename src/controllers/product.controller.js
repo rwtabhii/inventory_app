@@ -71,8 +71,10 @@ export default class ProductController {
 
   userLoginAuth(req, res) {
     console.log(req.body)
+    const {email} = req.body
    const final =   userData.validUser(req.body);
    if(final){
+    req.session.useremail = email;
    let products= ProductModel.get();
     return res.render("products",{products,errorMessage : null})
    }
