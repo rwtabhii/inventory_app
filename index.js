@@ -26,11 +26,17 @@ server.post("/",uploadFile.single("imageUrl"),validationRequest,productControlle
 
 // updated products
 server.get("/updateProduct/:id",productController.getUpdateProductform);
-server.post("/updateProduct",validationRequest,productController.updateProductList)
+server.post("/updateProduct",validationRequest,productController.updateProductList);
 
 // deletion product 
 server.post("/deleteProduct/:id",productController.deleteProduct);
-
+// for this data i have to use the url encoded data to parse the data
+server.use(express.urlencoded({extended:true}));
+server.get("/register",productController.RegisterForm);
+server.get("/login",productController.loginForm);
+server.post("/register",productController.submitRegisterForm);
+server.post("/register",productController.submitRegisterForm);
+server.post("/login",productController.userLoginAuth);
 
 
 server.listen(3000);
