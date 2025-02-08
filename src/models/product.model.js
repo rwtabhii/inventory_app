@@ -69,3 +69,24 @@ var products = [
     'https://m.media-amazon.com/images/I/31PBdo581fL._SX317_BO1,204,203,200_.jpg',
   ),
 ]
+
+// login data
+  export  class userData {
+    constructor(_id,_name,_email,_password){
+      this.id = _id;
+      this.name = _name;
+      this.email = _email;
+      this.password = _password;
+    }
+    static add(name,email,password){
+    const newUser = new userData(users.length+1 , name,email,password)
+    users.push(newUser);
+    }
+  static validUser(user){
+  const result =  users.find(u=> u.email == user.email && u.password == user.password)
+  return result;
+  }
+ 
+
+}
+const users = [];
