@@ -47,7 +47,7 @@ server.get("/login",productController.loginForm);
 server.post("/register",productController.submitRegisterForm);
 server.post("/register",productController.submitRegisterForm);
 server.post("/login",productController.userLoginAuth);
-
+server.get("/logout",productController.logout);
 
 server.listen(3000);
 console.log('Server is listening on port 3000');

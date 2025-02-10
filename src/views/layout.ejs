@@ -34,12 +34,20 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/productForm">Add Products</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
-                    </li>
+
+                    <% if(locals.useremail){%>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/logout">logout</a>
+                        </li>
+                        <% } else {%>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                            </li>
+                            <% } %>
                 </ul>
             </div>
         </div>
@@ -47,7 +55,7 @@
     <div class="container">
         <%-body%>
     </div>
-    
+
 </body>
 
 </html>

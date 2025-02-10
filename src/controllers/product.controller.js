@@ -7,12 +7,13 @@ export default class ProductController {
   getProducts(req, res) {
     let products = ProductModel.get()
     //   console.log(products);
-    return res.render("products", { products: products })
+
+    return res.render("products", { products: products ,useremail : req.session.userEmail})
     // return res.sendFile(path.join(path.resolve(),"src",'views',"products.html" ));
   }
 
   getaddProduct(req, res) {
-    return res.render("addProductForm", { errorMessage: null });
+    return res.render("addProductForm", { errorMessage: null,useremail : req.session.userEmail });
   }
   showNewProductsList(req, res) {
     console.log(req.body);
@@ -20,7 +21,7 @@ export default class ProductController {
     const imageUrl = "images/" + req.file.filename;
     ProductModel.addProduct(name, desc, price, imageUrl);
     let products = ProductModel.get()
-    return res.render("products", { products: products });
+    return res.render("products", { products: products,useremail : req.session.userEmail });
   }
   getUpdateProductform(req, res) {
     const id = req.params.id
@@ -28,7 +29,7 @@ export default class ProductController {
     const productFound = ProductModel.getByid(id);
     //   console.log(productFound)
     if (productFound) {
-      return res.render("updateProduct", { products: productFound, errorMessage: null });
+      return res.render("updateProduct", { products: productFound, errorMessage: null,useremail : req.session.userEmail });
     } else {
       return res.send("Product Not Found")
     }
@@ -45,13 +46,13 @@ export default class ProductController {
     let products = ProductModel.get();
     console.log("🟢 Updated Products List:", products);
 
-    return res.render("products", { products, errorMessage: null });
+    return res.render("products", { products, errorMessage: null,useremail : req.session.userEmail });
   }
   deleteProduct(req, res) {
     const id = req.params.id
     ProductModel.deleteData(id);
     let products = ProductModel.get();
-    return res.render("products", { products });
+    return res.render("products", { products ,useremail : req.session.useremail});
 
   }
 
@@ -76,12 +77,22 @@ export default class ProductController {
    if(final){
     req.session.useremail = email;
    let products= ProductModel.get();
-    return res.render("products",{products,errorMessage : null})
+    return res.render("products",{products,errorMessage : null, useremail : req.session.useremail})
    }
    else{
     let error = "login Failed If you're a new user then register First";
     return res.render("login",{errorMessage: error})
    }
+  }
+
+  logout(req,res){
+     req.session.destroy(err=>{
+      if(err){
+        console.log(err);
+      } else{
+       return res.redirect("/login");
+      }
+    });
   }
 
 
