@@ -10,6 +10,13 @@
         </tr>
     </thead>
     <tbody>
+        <div>
+            <% if(locals.lastVisit){ %>
+                <div class ="alert">Your last Visit : <%= locals.lastVisit %></div>
+        </div>
+          <%}%>
+
+
         <% products.forEach(product=>{ %>
             <tr>
                 <th>
