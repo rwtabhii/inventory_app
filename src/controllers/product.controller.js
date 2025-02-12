@@ -86,12 +86,15 @@ export default class ProductController {
   }
 
   logout(req,res){
+    
      req.session.destroy(err=>{
       if(err){
         console.log(err);
       } else{
-       return res.redirect("/login");
+        res.clearCookie("lastVisit");
+        res.redirect("/login");
       }
+       
     });
   }
 

@@ -1,12 +1,15 @@
 import express from 'express'
 import ProductController from './src/controllers/product.controller.js';
-import ejslayouts from "express-ejs-layouts"
+import ejslayouts from "express-ejs-layouts";
 import { validationRequest } from './src/middleware/formValidation.js';
 import { uploadFile } from './src/middleware/fileUploadmiddleware.js';
 
 import path from 'path';
 import session from 'express-session';
+import cookieparser from "cookie-parser"
 import { auth } from './src/middleware/loginauth.js';
+import { setLastVisit } from './src/middleware/lastVisit.js';
+
 
 const server = express();
  
@@ -16,6 +19,9 @@ server.set("view engine", "ejs");
 server.set("views", path.join(path.resolve(),"src",'views')); 
 server.use(ejslayouts);
 server.use(express.static("src/public"));
+// cookies-parser
+server.use(cookieparser());
+// server.use(setLastVisit);
 
 // session
 server.use(session({
@@ -24,9 +30,12 @@ server.use(session({
     saveUninitialized : true,
     cookie : {secure : false},
 }));
+
+
+
 // create an instance of ProductController
 const productController = new ProductController(); 
-server.get('/',auth,(productController.getProducts));
+server.get('/',setLastVisit,auth,productController.getProducts);
 server.get("/productForm",auth,productController.getaddProduct);
 
 server.use(express.static('src/views'));
@@ -48,6 +57,7 @@ server.post("/register",productController.submitRegisterForm);
 server.post("/register",productController.submitRegisterForm);
 server.post("/login",productController.userLoginAuth);
 server.get("/logout",productController.logout);
+
 
 server.listen(3000);
 console.log('Server is listening on port 3000');
